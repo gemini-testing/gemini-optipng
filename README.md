@@ -1,6 +1,9 @@
-[![Build Status](https://travis-ci.org/gemini-testing/gemini-optipng.svg?branch=master)](https://travis-ci.org/gemini-testing/gemini-optipng)
-
 # gemini-optipng
+
+[![NPM version](https://img.shields.io/npm/v/gemini-optipng.svg?style=flat)](https://www.npmjs.org/package/gemini-optipng)
+[![Build Status](https://travis-ci.org/gemini-testing/gemini-optipng.svg?branch=master)](https://travis-ci.org/gemini-testing/gemini-optipng)
+[![Coverage Status](https://img.shields.io/coveralls/gemini-testing/gemini-optipng.svg?style=flat)](https://coveralls.io/r/gemini-testing/gemini-optipng?branch=master)
+[![Dependency Status](https://img.shields.io/david/gemini-testing/gemini-optipng.svg?style=flat)](https://david-dm.org/gemini-testing/gemini-optipng)
 
 Plugin optimizes reference images at the time of their update via `gemini update` command.
 It uses [optipng](https://github.com/imagemin/optipng-bin) and optimizes the image only if it has been changed.
