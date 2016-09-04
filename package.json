@@ -8,6 +8,7 @@
   },
   "bugs": "https://github.com/gemini-testing/gemini-optipng/issues",
   "main": "lib/plugin.js",
+  "license": "MIT",
   "scripts": {
     "lint": "eslint .",
     "test": "mocha test",
