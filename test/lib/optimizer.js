@@ -4,8 +4,7 @@ const childProcess = require('child_process');
 
 const optipng = require('optipng-bin');
 const proxyquire = require('proxyquire');
-const fs = require('q-io/fs');
-const q = require('q');
+const fs = require('fs-extra');
 
 describe('optimizer', () => {
     const sandbox = sinon.sandbox.create();
@@ -14,7 +13,7 @@ describe('optimizer', () => {
     let log;
 
     beforeEach(() => {
-        sandbox.stub(fs, 'stat').returns(q({size: 100500}));
+        sandbox.stub(fs, 'stat').resolves({size: 100500});
         sandbox.stub(childProcess, 'execFile').yields(null);
 
         log = sandbox.stub();
@@ -41,8 +40,8 @@ describe('optimizer', () => {
         const compressionRate = 50;
 
         fs.stat
-            .onFirstCall().returns(q({size: sizeBeforeOptim}))
-            .onSecondCall().returns(q({size: sizeAfterOptim}));
+            .onFirstCall().resolves({size: sizeBeforeOptim})
+            .onSecondCall().resolves({size: sizeAfterOptim});
 
         return Optimizer.create({}, data).exec()
             .then(() => assert.calledWith(log, `${data.imagePath} compressed by ${compressionRate}%`));
@@ -54,8 +53,8 @@ describe('optimizer', () => {
         const compressionRate = 67;
 
         fs.stat
-            .onFirstCall().returns(q({size: sizeBeforeOptim}))
-            .onSecondCall().returns(q({size: sizeAfterOptim}));
+            .onFirstCall().resolves({size: sizeBeforeOptim})
+            .onSecondCall().resolves({size: sizeAfterOptim});
 
         return Optimizer.create({}, {}).exec()
             .then(() => assert.calledWithMatch(log, `compressed by ${compressionRate}%`));
