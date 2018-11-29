@@ -27,14 +27,14 @@ describe('optimizer', () => {
 
     it('should execute optipng optimizer with correct params', () => {
         const opts = {level: 100500};
-        const imagePath = 'path/to/ref/image.png';
+        const data = {refImg: {path: 'path/to/ref/image.png'}};
 
-        return Optimizer.create(opts, {imagePath}).exec()
-            .then(() => assert.calledWith(childProcess.execFile, optipng, ['-o', opts.level, imagePath]));
+        return Optimizer.create(opts, data).exec()
+            .then(() => assert.calledWith(childProcess.execFile, optipng, ['-o', opts.level, data.refImg.path]));
     });
 
     it('should log rate on which the ref image has been compressed (in percents)', () => {
-        const data = {imagePath: 'path/to/ref/image.png'};
+        const data = {refImg: {path: 'path/to/ref/image.png'}};
         const sizeBeforeOptim = 2000;
         const sizeAfterOptim = 1000;
         const compressionRate = 50;
@@ -44,7 +44,7 @@ describe('optimizer', () => {
             .onSecondCall().resolves({size: sizeAfterOptim});
 
         return Optimizer.create({}, data).exec()
-            .then(() => assert.calledWith(log, `${data.imagePath} compressed by ${compressionRate}%`));
+            .then(() => assert.calledWith(log, `${data.refImg.path} compressed by ${compressionRate}%`));
     });
 
     it('should log rounded compression rate (in percents)', () => {
